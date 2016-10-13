@@ -25,6 +25,8 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _VentaResponse_QNAME = new QName("http://webserviceIMM/", "VentaResponse");
+    private final static QName _CancelarTicket_QNAME = new QName("http://webserviceIMM/", "CancelarTicket");
+    private final static QName _CancelarTicketResponse_QNAME = new QName("http://webserviceIMM/", "CancelarTicketResponse");
     private final static QName _Venta_QNAME = new QName("http://webserviceIMM/", "Venta");
 
     /**
@@ -32,6 +34,22 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link CancelarTicket }
+     * 
+     */
+    public CancelarTicket createCancelarTicket() {
+        return new CancelarTicket();
+    }
+
+    /**
+     * Create an instance of {@link CancelarTicketResponse }
+     * 
+     */
+    public CancelarTicketResponse createCancelarTicketResponse() {
+        return new CancelarTicketResponse();
     }
 
     /**
@@ -65,6 +83,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webserviceIMM/", name = "VentaResponse")
     public JAXBElement<VentaResponse> createVentaResponse(VentaResponse value) {
         return new JAXBElement<VentaResponse>(_VentaResponse_QNAME, VentaResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CancelarTicket }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webserviceIMM/", name = "CancelarTicket")
+    public JAXBElement<CancelarTicket> createCancelarTicket(CancelarTicket value) {
+        return new JAXBElement<CancelarTicket>(_CancelarTicket_QNAME, CancelarTicket.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CancelarTicketResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webserviceIMM/", name = "CancelarTicketResponse")
+    public JAXBElement<CancelarTicketResponse> createCancelarTicketResponse(CancelarTicketResponse value) {
+        return new JAXBElement<CancelarTicketResponse>(_CancelarTicketResponse_QNAME, CancelarTicketResponse.class, null, value);
     }
 
     /**

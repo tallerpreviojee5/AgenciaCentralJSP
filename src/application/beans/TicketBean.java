@@ -11,6 +11,11 @@ public class TicketBean {
 	private long importe;
 	private long idTerminal;
 	
+	public enum Estado {ACTIVO,CANCELADO,FINALIZADO};
+	private Estado estado;
+	
+	public TicketBean(){}
+	
 	public long getIdTerminal() {
 		return idTerminal;
 	}
@@ -26,12 +31,7 @@ public class TicketBean {
 	public void setFechaInicioServicio(Date fechaInicioServicio) {
 		this.fechaInicioServicio = fechaInicioServicio;
 	}
-
-	public enum Estado {ACTIVO,CANCELADO,FINALIZADO};
-	private Estado estado;
-	
-	public TicketBean(){}
-	
+		
 	public long getNroTicket() {
 		return nroTicket;
 	}

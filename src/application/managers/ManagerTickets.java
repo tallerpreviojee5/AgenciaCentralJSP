@@ -20,5 +20,30 @@ public class ManagerTickets {
 		
 		return resultado;
 	}
+	
+	public String getEstadoTicket(long nroTicket){
+		
+		String estado = "";
+		
+		try{
+		
+			estado = persistenciaTickets.get_estado_ticket_BD(nroTicket);
+		
+		}catch(Exception e){
+			
+			e.printStackTrace();
+		
+		}
+		
+		return estado;
+	}
+	
+	public void cancelarTicket(long nroTicket){
+		try{
+			persistenciaTickets.cancelar_ticket_BD(nroTicket);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 
 }

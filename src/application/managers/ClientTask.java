@@ -93,7 +93,8 @@ public class ClientTask implements Runnable {
 			String fecha_inicio;
 			String hora_inicio;
 			String code_500 = "500";
-		
+			String nroTicket;
+			
 			while(!componentes[0].equals("3")){
 				orden = in.readLine();
 				System.out.println("Recibida orden: " + orden);
@@ -136,9 +137,20 @@ public class ClientTask implements Runnable {
 					}
 					break;
 				case "2":
-					System.out.println("Ingreso de cancelacion:");
-					System.out.println("Matricula: " + componentes[1]);
-					System.out.println("Minutos: " + componentes[2]);
+					String str_nroTicket = componentes[1];
+					System.out.println("Ingreso de cancelacion de ticket:");
+					System.out.println("Nro de ticket: " + componentes[1]);
+					
+					long NroTicket = Long.parseLong(str_nroTicket);
+					
+					if(validarTicket(NroTicket)){
+						CancelarTicketIMM(NroTicket,idAgencia,"secreto");
+						managerTickets.cancelarTicket(NroTicket);
+						out.println(code_200);
+					}else{
+						String msj_error = "Numero_ticket_invalido_o_ya_cancelado";
+						out.println(code_500 + " " + msj_error);
+					}
 					break;
 				case "3":
 					break;
@@ -215,6 +227,21 @@ public class ClientTask implements Runnable {
         catch (DatatypeConfigurationException e) {e.printStackTrace();}
         return venta_OK;
 	}
+	
+	private boolean validarTicket(long nroTicket){
+		
+		boolean resultado = true;
+		
+		managerTickets = new ManagerTickets();
+		
+		String estado = managerTickets.getEstadoTicket(nroTicket);
+		
+		if((estado.isEmpty()) || (!estado.equalsIgnoreCase("ACTIVO"))){
+			resultado = false;
+		}
+		
+		return resultado;
+	}
 		
 		
 	private DatatypeVenta AltaVentaIMM(DatatypeVenta datatypeVenta){
@@ -223,5 +250,11 @@ public class ClientTask implements Runnable {
 		DatatypeVenta datatypeVentaResponse = wsTicketImm.venta(datatypeVenta);
 		
 		return datatypeVentaResponse;
+	}
+	
+	private void CancelarTicketIMM(long NroTicket, long idAgencia, String secreto){
+		WebserviceTicketsIMMService wsTicketImmService = new WebserviceTicketsIMMService();
+		WebserviceTicketsIMM wsTicketImm = wsTicketImmService.getWebserviceTicketsIMMPort();
+		wsTicketImm.cancelarTicket(NroTicket, idAgencia, secreto);
 	}
 }
